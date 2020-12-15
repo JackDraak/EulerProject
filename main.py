@@ -8,7 +8,6 @@ def euler2(max_value):
 
 def fibonacci(max_value):
     fibs = [1, 2]
-    n = 0
     while True:
         f1 = fibs[len(fibs) - 1]
         f2 = fibs[len(fibs) - 2]
@@ -20,15 +19,60 @@ def fibonacci(max_value):
     return fibs
 
 
+def is_factor(integer):
+    if integer[1] % integer[0] == 0:
+        return True
+    else:
+        return False
+
+
+def is_prime(integer):
+    if integer <= 1:
+        return False
+    test = 2
+    while True:
+        if test == integer:
+            return True
+        elif integer % test == 0:
+            break
+        else:
+            test += 1
+    return False  # i.e. 'elif' was affirmative; break out of loop asap.
+
+
+def is_prime_factor(n):
+    return is_prime(n[0]) and is_factor([n[0], n[1]])
+
+
 if __name__ == '__main__':
+    # Fundamental tests
+    assert is_prime(0) == False
+    assert is_prime(2) == True
+
+    factors = [1, 2]
+    assert is_factor(factors) == True
+    print("factors 1, 2 " + str(is_factor(factors)))
+    assert is_prime_factor(factors) == False
+    print("prime_factors 1, 2 " + str(is_prime_factor(factors)))
+    factors = [4, 9]
+    assert is_factor(factors) == False
+    print("factors 4, 9 " + str(is_factor(factors)))
+    assert is_prime_factor(factors) == False
+    print("prime_factors 4, 9 " + str(is_prime_factor(factors)))
+    factors = [5, 10]
+    assert is_factor(factors) == True
+    print("factors 5, 10 " + str(is_factor(factors)))
+    assert is_prime_factor(factors) == True
+    print("prime_factors 5, 10 " + str(is_prime_factor(factors)))
+
     # Euler tests
+    assert euler1(1000) == 233168
     print("Euler 1: 1000 = " + str(euler1(1000)))
+
+    assert euler2(4000000) == 4613732
     print("Euler 2: 4000000 = " + str(euler2(4000000)))
 
     # random tests
-    print("Fibonacci numbers up to 6000000, inclusive = " + str(fibonacci(6000000)))
-    even_fibs = []
-    for fib_number in fibonacci(6000000):
-        if fib_number % 2 == 0:
-            even_fibs.append(fib_number)
-    print("even Fibonacci numbers up to 6000000, inclusive = " + str(even_fibs))
+    # for i in range(50):
+    #     if is_prime(i):
+    #         print('is_prime(' + str(i) + ') ')

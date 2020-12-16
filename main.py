@@ -46,33 +46,40 @@ def is_prime_factor(n):
 
 if __name__ == '__main__':
     # Fundamental tests
+    print("#####  Unit Tests:  #####")
+
     assert is_prime(0) == False
+    print("is_prime(0) = " + str(is_prime(0)))
     assert is_prime(2) == True
+    print("is_prime(2) = " + str(is_prime(2)))
+
+    assert fibonacci(25) == [1, 2, 3, 5, 8, 13, 21]
+    print("Fibonacci(25) = " + str(fibonacci(25)))
 
     factors = [1, 2]
     assert is_factor(factors) == True
-    print("factors 1, 2 " + str(is_factor(factors)))
+    print("factors(1, 2) = " + str(is_factor(factors)))
     assert is_prime_factor(factors) == False
-    print("prime_factors 1, 2 " + str(is_prime_factor(factors)))
+    print("prime_factors(1, 2) = " + str(is_prime_factor(factors)))
+
     factors = [4, 9]
     assert is_factor(factors) == False
-    print("factors 4, 9 " + str(is_factor(factors)))
+    print("factors(4, 9) = " + str(is_factor(factors)))
     assert is_prime_factor(factors) == False
-    print("prime_factors 4, 9 " + str(is_prime_factor(factors)))
+    print("prime_factors(4, 9) = " + str(is_prime_factor(factors)))
+
     factors = [5, 10]
     assert is_factor(factors) == True
-    print("factors 5, 10 " + str(is_factor(factors)))
+    print("factors(5, 10) = " + str(is_factor(factors)))
     assert is_prime_factor(factors) == True
-    print("prime_factors 5, 10 " + str(is_prime_factor(factors)))
+    print("prime_factors(5, 10) = " + str(is_prime_factor(factors)))
 
     # Euler tests
+    print("")
+    print("#####  Euler Tests:  #####")
+
     assert euler1(1000) == 233168
-    print("Euler 1: 1000 = " + str(euler1(1000)))
+    print("Euler1(1000) = " + str(euler1(1000)))
 
     assert euler2(4000000) == 4613732
-    print("Euler 2: 4000000 = " + str(euler2(4000000)))
-
-    # random tests
-    # for i in range(50):
-    #     if is_prime(i):
-    #         print('is_prime(' + str(i) + ') ')
+    print("Euler2(4000000) = " + str(euler2(4000000)))

@@ -1,9 +1,23 @@
+import math
+
+
 def euler1(max_value):
     return sum(x for x in range(max_value) if (x % 3 == 0 or x % 5 == 0))
 
 
 def euler2(max_value):
     return sum(x for x in fibonacci(max_value) if (x % 2 == 0 and x < max_value))
+
+
+# E3: What is the largest prime factor of the number 600851475143
+def euler3(n):
+    for i in reversed(range(int(math.sqrt(n)), int(n / 2))):
+        # print(i)
+        if i % 5000 == 0:
+            print(i)
+        if is_prime_factor([i, n]):
+            return i
+    return "no prime factor found"  # TODO complete E3
 
 
 def fibonacci(max_value):
@@ -83,3 +97,8 @@ if __name__ == '__main__':
 
     assert euler2(4000000) == 4613732
     print("Euler2(4000000) = " + str(euler2(4000000)))
+
+    # TODO complete/correct the E3 assertion
+    # assert euler3(75143) == 461
+    # print("Euler3(75143) = " + str(euler3(75143)))
+    print("Euler3(600851475143) = " + str(euler3(1475143)))

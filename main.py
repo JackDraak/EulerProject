@@ -117,162 +117,162 @@ def is_prime_factor(i, n):
     return is_prime(i) and is_factor(i, n)
 
 
-def test_is_prime(debug):
+def test_is_prime(verbose):
     assert is_prime(0) == False
-    if debug:
+    if verbose:
         print("is_prime(0) = " + str(is_prime(0)))
     assert is_prime(2) == True
-    if debug:
+    if verbose:
         print("is_prime(2) = " + str(is_prime(2)))
     assert is_prime(4) == False
-    if debug:
+    if verbose:
         print("is_prime(4) = " + str(is_prime(4)))
     assert is_prime(7) == True
-    if debug:
+    if verbose:
         print("is_prime(7) = " + str(is_prime(7)))
     assert is_prime(22) == False
-    if debug:
+    if verbose:
         print("is_prime(22) = " + str(is_prime(22)))
     assert is_prime(23) == True
-    if debug:
+    if verbose:
         print("is_prime(23) = " + str(is_prime(23)))
 
-    if debug:
+    if verbose:
         for i in range(-1, 255):
             print("is_prime(" + str(i) + ") = " + str(is_prime(i)))
 
 
-def test_is_factor(debug):
+def test_is_factor(verbose):
     i = 1
     n = 2
     assert is_factor(i, n) == True
-    if debug:
+    if verbose:
         print("factors(1, 2) = " + str(is_factor(i, n)))
     assert is_prime_factor(i, n) == False
-    if debug:
+    if verbose:
         print("prime_factors(1, 2) = " + str(is_prime_factor(i, n)))
 
     i = 4
     n = 9
     assert is_factor(i, n) == False
-    if debug:
+    if verbose:
         print("factors(4, 9) = " + str(is_factor(i, n)))
     assert is_prime_factor(i, n) == False
-    if debug:
+    if verbose:
         print("prime_factors(4, 9) = " + str(is_prime_factor(i, n)))
 
     i = 5
     n = 10
     assert is_factor(i, n) == True
-    if debug:
+    if verbose:
         print("factors(5, 10) = " + str(is_factor(i, n)))
     assert is_prime_factor(i, n) == True
-    if debug:
+    if verbose:
         print("prime_factors(5, 10) = " + str(is_prime_factor(i, n)))
 
 
-def test_fibonacci(debug):
+def test_fibonacci(verbose):
     assert fibonacci(25) == [1, 2, 3, 5, 8, 13, 21]
-    if debug:
+    if verbose:
         print("Fibonacci(25) = " + str(fibonacci(25)))
 
 
-def test_eulers(debug):
-    if debug:
+def test_eulers(verbose):
+    if verbose:
         print("")
         print("#####  Euler Tests:  #####")
         print("")
 
     assert euler1(1000) == 233168
-    if debug:
+    if verbose:
         print("Euler1(1000) = " + str(euler1(1000)))
-    if debug:
+    if verbose:
         print("")
 
     assert euler2(4000000) == 4613732
-    if debug:
+    if verbose:
         print("Euler2(4000000) = " + str(euler2(4000000)))
         print("")
 
     # assert euler3(5143) == 139  ## breaks with sqrt optimization.....
-    if debug:
-        print("Euler3(5143) = " + str(euler3(5143)) + " if this is 37 it's an error, ought to be 139")
+    if verbose:
+        print("Euler3(5143) = " + str(euler3(5143)) + " ** if this is 37 it's an error, ought to be 139")
 
     assert euler3(14391) == 41
-    if debug:
+    if verbose:
         print("Euler3(14391) = " + str(euler3(14391)))
 
     assert euler3(4745143) == 97
-    if debug:
+    if verbose:
         print("Euler3(4745143) = " + str(euler3(4745143)))
 
     assert euler3(994745143) == 5227
-    if debug:
+    if verbose:
         print("Euler3(994745143) = " + str(euler3(994745143)))
 
     assert euler3(600851475143) == 6857
-    if debug:
+    if verbose:
         print("Euler3(600851475143) = " + str(euler3(600851475143)))
         print("")
 
     assert euler4(2) == 9009
-    if debug:
+    if verbose:
         print("Euler4(2) = " + str(euler4(2)))
 
     assert euler4(3) == 906609
-    if debug:
+    if verbose:
         print("Euler4(3) = " + str(euler4(3)))
 
     assert euler4(4) == 99000099
-    if debug:
+    if verbose:
         print("Euler4(4) = " + str(euler4(4)))
 
     # this passes, but takes a couple seconds
     # assert euler4(5) == 9966006699
-    # if debug:
+    # if verbose:
     #    print("Euler4(5) = " + str(euler4(5)))
 
 
-def test_is_palindrome(debug):
+def test_is_palindrome(verbose):
     assert is_palindrome(1201) == False
-    if debug:
+    if verbose:
         print("is_palindrome(1201) = " + str(is_palindrome(1201)))
     assert is_palindrome(906609) == True
-    if debug:
+    if verbose:
         print("is_palindrome(906609) = " + str(is_palindrome(906609)))
     assert is_palindrome(101) == True
-    if debug:
+    if verbose:
         print("is_palindrome(101) = " + str(is_palindrome(101)))
     assert is_palindrome(11) == True
-    if debug:
+    if verbose:
         print("is_palindrome(11) = " + str(is_palindrome(11)))
     assert is_palindrome(1660661) == True
-    if debug:
+    if verbose:
         print("is_palindrome(1660661) = " + str(is_palindrome(1660661)))
     assert is_palindrome(9) == False
-    if debug:
+    if verbose:
         print("is_palindrome(9) = " + str(is_palindrome(9)))
     assert is_palindrome(2112) == True
-    if debug:
+    if verbose:
         print("is_palindrome(2112) = " + str(is_palindrome(2112)))
     assert is_palindrome(21999912) == True
-    if debug:
+    if verbose:
         print("is_palindrome(21999912) = " + str(is_palindrome(21999912)))
     assert is_palindrome(12) == False
-    if debug:
+    if verbose:
         print("is_palindrome(12) = " + str(is_palindrome(12)))
     assert is_palindrome("abc") == "extend function to check strings"
-    if debug:
+    if verbose:
         print("is_palindrome('abc') = " + str(is_palindrome("abc")))
 
 
 if __name__ == '__main__':
-    # Unit tests (bool: False = silent)
+    # Unit tests (bool: False = silent, True = verbose)
     test_is_prime(False)
     test_is_factor(False)
     test_fibonacci(False)
     test_is_palindrome(False)
 
-    # Euler tests (bool: False = silent)
+    # Euler tests (bool: False = silent, True = verbose)
     test_eulers(True)
 

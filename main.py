@@ -11,12 +11,12 @@ def euler2(max_value):
 
 # TODO E3: What is the largest prime factor of the number 600851475143
 def euler3(n):
-    for i in reversed(range(3, n, 2)):
-        if is_odd(i):
-            if is_factor(i, n):
-                if is_prime(i):
-                    # print("xxx " + str(i))
-                    return i
+    # This is a brute-force approach. There is a better way...
+    for i in reversed(range(3, int(n/2), 2)):
+        if is_small(i):
+            continue
+        if is_prime_factor(i, n):
+            return i
     return "no prime factor found"
 
 
@@ -45,24 +45,25 @@ def is_odd(n):
     return n % 2 != 0
 
 
-def is_prime(n):
+def is_small(n):  # i.e divisible by 3 or 5
+    return n % 3 == 0 or n % 5 == 0
+
+
+def is_prime(n):  # optimized prime qualifier
     # corner cases
     if n <= 1:
         return False
     if n <= 3:
         return True
-
     # divisible by 2 or 3, not prime
     if n % 2 == 0 or n % 3 == 0:
         return False
-
     # 6k±1 discovery
     i = 5
-    while i * i <= n:
+    while i * i <= n:  # i.e. while 'i' is less than the square root of 'n'
         if n % i == 0 or n % (i + 2) == 0:
             return False
         i = i + 6
-
     return True
 
 
@@ -83,6 +84,9 @@ def test_is_prime():
     print("is_prime(22) = " + str(is_prime(22)))
     assert is_prime(23) == True
     print("is_prime(23) = " + str(is_prime(23)))
+
+    for i in range(-1, 255):
+        print("is_prime(" + str(i) + ") = " + str(is_prime(i)))
 
 
 def test_is_factor():
@@ -111,32 +115,47 @@ def test_fibonacci():
     print("Fibonacci(25) = " + str(fibonacci(25)))
 
 
-if __name__ == '__main__':
-    # Fundamental tests
-    print("#####  Unit Tests:  #####")
-    test_is_prime()
-    test_is_factor()
-    test_fibonacci()
-
-    # maxPrimeFactors(573891))  # 191297
-
-
+def test_eulers():
     # Euler tests
     print("")
     print("#####  Euler Tests:  #####")
 
     assert euler1(1000) == 233168
     print("Euler1(1000) = " + str(euler1(1000)))
+    print("")
 
     assert euler2(4000000) == 4613732
     print("Euler2(4000000) = " + str(euler2(4000000)))
+    print("")
 
     assert euler3(5143) == 139
     print("Euler3(5143) = " + str(euler3(5143)))
-    # TODO complete/correct the E3 assertion/algorithm
-    # assert euler3(514391) ==
-    print("Euler3(514391) = " + str(euler3(514391)))
-    # assert euler3(64745143) ==
-    print("Euler3(64745143) = " + str(euler3(64745143)))
-    # assert euler3(600851475143) ==
+    print("")
+
+    assert euler3(13195) == 29
+    print("Euler3(13195) = " + str(euler3(13195)))
+    print("")
+
+    assert euler3(14391) == 41
+    print("Euler3(14391) = " + str(euler3(14391)))
+    print("")
+
+    # these work, but take a couple seconds, so are commented-out
+    # assert euler3(4745143) == 97
+    # print("Euler3(4745143) = " + str(euler3(4745143)))
+
+    # TODO complete the E3 algorithm, I assume this will work, but it's untested
+    # assert euler3(600851475143) == 6857
     # print("Euler3(600851475143) = " + str(euler3(600851475143)))
+    #print("")
+
+
+if __name__ == '__main__':
+    # print("#####  Unit Tests:  #####")
+    # test_is_prime()
+    # test_is_factor()
+    # test_fibonacci()
+
+    test_eulers()
+
+

@@ -1,19 +1,21 @@
-# Euler1: The sum of integers in a range [1000] that are divisible by 3 or 5
+# Euler1: The sum of integers in a range that are divisible by 3 or 5
+# [1 - 1000]
 def euler1(n):
-    return sum(i for i in range(n) if is_divisible_by_3or5(i))
+    return sum(i for i in range(1, n) if is_divisible_by_3or5(i))
 
 
-# Euler2: The sum of even Fibonacci numbers [less than 4,000,000]
+# Euler2: The sum of even Fibonacci numbers
+# [1 - 4,000,000]
 def euler2(n):
     return sum(i for i in fibonacci(n) if (is_even(i) and i < n))
 
 
-# Euler3: The largest prime factor [of the number 600851475143]
+# Euler3: The largest prime factor
+# [of the number 600851475143]
 def euler3(n):
-    # Note, below variable solves all cases I've tried when == 1, except 5143 (granted, I've done limited testing)
-    stupid_fudge_factor = 69    # TODO optimized, but broken for some cases (i.e. 5143), without this >= 69 (should be 1)
+    # Optimized, but broken for some cases (i.e. 5143), without s_f_f >= 69 (should be 1).
+    stupid_fudge_factor = 69
     for i in reversed(range(3, int(n**0.5) + stupid_fudge_factor, 2)):
-        # if is_sqrt_or_less(i, n):
         if is_divisible_by_3or5(i):
             continue
         if is_prime_factor(i, n):
@@ -21,7 +23,8 @@ def euler3(n):
     return "no prime factor found"
 
 
-# Euler4: The largest palindrome made from the product of two n-digit [3] numbers.
+# Euler4: The largest palindrome made from the product of two n-digit numbers
+# [3 digits]
 def euler4(n):
     if n > 10:
         return "I don't think you want to wait for me to process an answer that large"
@@ -33,14 +36,8 @@ def euler4(n):
     test_set = range(i_min, i_max)  # i.e. [90-99]. [900-999], [9000-9999]...
     max_palindrome = 0
 
-    # attempted to 'optimize' euler4 function to prevent duplication of tests, but...
-    # cataloging tested sets seems to take more time than simply re-testing them; go figure
-    # tested = []
     for x in test_set:
         for y in test_set:
-            # if y not in tested:
-            #    if x not in tested:
-            #       tested.append(x)
             test_integer = x * y
             if test_integer > max_palindrome:
                 if is_palindrome(test_integer):
@@ -51,10 +48,11 @@ def euler4(n):
     return "end of line"
 
 
-# Euler5: The smallest +ve number that is evenly divisible by all of the positive integers in the set [from 1 to 20]
+# Euler5: The smallest +ve number that is evenly divisible by all of the positive integers in the set
+# [1 - 20]
 def euler5(n):
     euler = 0
-    euler_candidate = n
+    euler_candidate = 0
     while euler == 0:
         euler_candidate += n
         for i in range(1, n + 1):
@@ -63,6 +61,18 @@ def euler5(n):
             if i == n:
                 euler = euler_candidate
     return euler
+
+
+# Euler6: The difference between the sum of the squares and the square of the sum
+# [of the first one hundred natural numbers]
+def euler6(n):
+    sum_of_set = 0
+    sum_of_squares = 0
+
+    for i in range(1, n + 1):
+        sum_of_set += i
+        sum_of_squares += i*i
+    return sum_of_set * sum_of_set - sum_of_squares
 
 
 def fibonacci(max_value):
@@ -203,12 +213,20 @@ def test_eulers(verbose):
     assert euler5(10) == 2520
     if verbose:
         print("Euler5(10) = " + str(euler5(10)))
+        print("")
 
     # this passes, but takes a few moments
     # assert euler5(20) == 232792560
     # if verbose:
     #    print("Euler5(20) = " + str(euler5(20)))
-    #    print("")
+
+    assert euler6(10) == 2640
+    if verbose:
+        print("Euler6(10) = " + str(euler6(10)))
+
+    assert euler6(100) == 25164150
+    if verbose:
+        print("Euler6(100) = " + str(euler6(100)))
 
 
 def test_fibonacci(verbose):

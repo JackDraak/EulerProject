@@ -13,6 +13,7 @@ def euler3(n):
     # Note, below variable solves all cases I've tried when == 1, except 5143 (granted, I've done limited testing)
     stupid_fudge_factor = 69    # TODO optimized, but broken for some cases (i.e. 5143), without this >= 69 (should be 1)
     for i in reversed(range(3, int(n**0.5) + stupid_fudge_factor, 2)):
+        # if is_sqrt_or_less(i, n):
         if is_divisible_by_3or5(i):
             continue
         if is_prime_factor(i, n):
@@ -32,8 +33,14 @@ def euler4(n):
     test_set = range(i_min, i_max)  # i.e. [90-99]. [900-999], [9000-9999]...
     max_palindrome = 0
 
+    # attempted to 'optimize' euler4 function to prevent duplication of tests, but...
+    # cataloging tested sets seems to take more time than simply re-testing them; go figure
+    # tested = []
     for x in test_set:
         for y in test_set:
+            # if y not in tested:
+            #    if x not in tested:
+            #       tested.append(x)
             test_integer = x * y
             if test_integer > max_palindrome:
                 if is_palindrome(test_integer):
@@ -42,22 +49,6 @@ def euler4(n):
     if max_palindrome > 0:
         return max_palindrome
     return "end of line"
-
-
-def is_palindrome(n):
-    if type(n) != int:
-        return "extend function to check strings"
-
-    f = str(n)
-    digits = len(f)
-
-    if digits <= 1:
-        return False
-
-    for i in range(0, int(digits/2)):
-        if int(f[i]) != int(f[digits - i - 1]):
-            return False
-    return True
 
 
 def fibonacci(max_value):
@@ -76,20 +67,36 @@ def fibonacci(max_value):
     return fibs
 
 
-def is_factor(i, n):
-    return n % i == 0
+def is_divisible_by_3or5(n):
+    return n % 3 == 0 or n % 5 == 0
 
 
 def is_even(n):
     return n % 2 == 0
 
 
+def is_factor(i, n):
+    return n % i == 0
+
+
 def is_odd(n):
     return n % 2 != 0
 
 
-def is_divisible_by_3or5(n):
-    return n % 3 == 0 or n % 5 == 0
+def is_palindrome(n):
+    if type(n) != int:
+        return "extend function to check strings"
+
+    f = str(n)
+    digits = len(f)
+
+    if digits <= 1:
+        return False
+
+    for i in range(0, int(digits/2)):
+        if int(f[i]) != int(f[digits - i - 1]):
+            return False
+    return True
 
 
 # optimized prime qualifier, using 6k±1 discovery, which I don't fully understand
@@ -117,64 +124,8 @@ def is_prime_factor(i, n):
     return is_prime(i) and is_factor(i, n)
 
 
-def test_is_prime(verbose):
-    assert is_prime(0) == False
-    if verbose:
-        print("is_prime(0) = " + str(is_prime(0)))
-    assert is_prime(2) == True
-    if verbose:
-        print("is_prime(2) = " + str(is_prime(2)))
-    assert is_prime(4) == False
-    if verbose:
-        print("is_prime(4) = " + str(is_prime(4)))
-    assert is_prime(7) == True
-    if verbose:
-        print("is_prime(7) = " + str(is_prime(7)))
-    assert is_prime(22) == False
-    if verbose:
-        print("is_prime(22) = " + str(is_prime(22)))
-    assert is_prime(23) == True
-    if verbose:
-        print("is_prime(23) = " + str(is_prime(23)))
-
-    if verbose:
-        for i in range(-1, 255):
-            print("is_prime(" + str(i) + ") = " + str(is_prime(i)))
-
-
-def test_is_factor(verbose):
-    i = 1
-    n = 2
-    assert is_factor(i, n) == True
-    if verbose:
-        print("factors(1, 2) = " + str(is_factor(i, n)))
-    assert is_prime_factor(i, n) == False
-    if verbose:
-        print("prime_factors(1, 2) = " + str(is_prime_factor(i, n)))
-
-    i = 4
-    n = 9
-    assert is_factor(i, n) == False
-    if verbose:
-        print("factors(4, 9) = " + str(is_factor(i, n)))
-    assert is_prime_factor(i, n) == False
-    if verbose:
-        print("prime_factors(4, 9) = " + str(is_prime_factor(i, n)))
-
-    i = 5
-    n = 10
-    assert is_factor(i, n) == True
-    if verbose:
-        print("factors(5, 10) = " + str(is_factor(i, n)))
-    assert is_prime_factor(i, n) == True
-    if verbose:
-        print("prime_factors(5, 10) = " + str(is_prime_factor(i, n)))
-
-
-def test_fibonacci(verbose):
-    assert fibonacci(25) == [1, 2, 3, 5, 8, 13, 21]
-    if verbose:
-        print("Fibonacci(25) = " + str(fibonacci(25)))
+def is_sqrt_or_less(i, n):
+    return i * i <= n
 
 
 def test_eulers(verbose):
@@ -194,25 +145,25 @@ def test_eulers(verbose):
         print("Euler2(4000000) = " + str(euler2(4000000)))
         print("")
 
-    # assert euler3(5143) == 139  ## breaks with sqrt optimization.....
+    assert euler3(5143) == 139
     if verbose:
-        print("Euler3(5143) = " + str(euler3(5143)) + " ** if this is 37 it's an error, ought to be 139")
+        print("Euler3(5143) = " + str(euler3(5143)))
 
     assert euler3(14391) == 41
     if verbose:
         print("Euler3(14391) = " + str(euler3(14391)))
 
-    # assert euler3(4745143) == 97
-    # if verbose:
-    #    print("Euler3(4745143) = " + str(euler3(4745143)))
+    assert euler3(4745143) == 97
+    if verbose:
+        print("Euler3(4745143) = " + str(euler3(4745143)))
 
-    # assert euler3(994745143) == 5227
-    # if verbose:
-    #    print("Euler3(994745143) = " + str(euler3(994745143)))
+    assert euler3(994745143) == 5227
+    if verbose:
+        print("Euler3(994745143) = " + str(euler3(994745143)))
 
-    # assert euler3(600851475143) == 6857
-    # if verbose:
-    #    print("Euler3(600851475143) = " + str(euler3(600851475143)))
+    assert euler3(600851475143) == 6857
+    if verbose:
+        print("Euler3(600851475143) = " + str(euler3(600851475143)))
         print("")
 
     assert euler4(2) == 9009
@@ -223,14 +174,48 @@ def test_eulers(verbose):
     if verbose:
         print("Euler4(3) = " + str(euler4(3)))
 
-    # this passes, but takes a couple seconds
-    # assert euler4(4) == 99000099
-    # if verbose:
-    #    print("Euler4(4) = " + str(euler4(4)))
+    assert euler4(4) == 99000099
+    if verbose:
+        print("Euler4(4) = " + str(euler4(4)))
 
+    # this passes, but takes a few moments
     # assert euler4(5) == 9966006699
     # if verbose:
     #    print("Euler4(5) = " + str(euler4(5)))
+
+
+def test_fibonacci(verbose):
+    assert fibonacci(25) == [1, 2, 3, 5, 8, 13, 21]
+    if verbose:
+        print("Fibonacci(25) = " + str(fibonacci(25)))
+
+
+def test_is_factor(verbose):
+    i = 1
+    n = 2
+    assert is_factor(i, n) == True
+    assert is_prime_factor(i, n) == False
+    if verbose:
+        _test_is_factor_set_verbosity(i, n)
+
+    i = 4
+    n = 9
+    assert is_factor(i, n) == False
+    assert is_prime_factor(i, n) == False
+    if verbose:
+        _test_is_factor_set_verbosity(i, n)
+
+    i = 5
+    n = 10
+    assert is_factor(i, n) == True
+    assert is_prime_factor(i, n) == True
+    if verbose:
+        _test_is_factor_set_verbosity(i, n)
+
+
+def _test_is_factor_set_verbosity(i, n):
+    print("factors(" + str(i) + ", " + str(n) + ") = " + str(is_factor(i, n)))
+    print("prime_factors(" + str(i) + ", " + str(n) + ") = " + str(is_prime_factor(i, n)))
 
 
 def test_is_palindrome(verbose):
@@ -275,12 +260,43 @@ def test_is_palindrome(verbose):
         print("is_palindrome('abc') = " + str(is_palindrome("abc")))
 
 
+def test_is_prime(verbose):
+    assert is_prime(0) == False
+    if verbose:
+        print("is_prime(0) = " + str(is_prime(0)))
+
+    assert is_prime(2) == True
+    if verbose:
+        print("is_prime(2) = " + str(is_prime(2)))
+
+    assert is_prime(4) == False
+    if verbose:
+        print("is_prime(4) = " + str(is_prime(4)))
+
+    assert is_prime(7) == True
+    if verbose:
+        print("is_prime(7) = " + str(is_prime(7)))
+
+    assert is_prime(22) == False
+    if verbose:
+        print("is_prime(22) = " + str(is_prime(22)))
+
+    assert is_prime(23) == True
+    if verbose:
+        print("is_prime(23) = " + str(is_prime(23)))
+
+    if verbose:
+        for i in range(-1, 255):
+            print("is_prime(" + str(i) + ") = " + str(is_prime(i)))
+
+
 if __name__ == '__main__':
     # Unit tests (bool: False = silent, True = verbose)
-    test_is_prime(False)
-    test_is_factor(False)
     test_fibonacci(False)
+    test_is_factor(False)
     test_is_palindrome(False)
+    test_is_prime(False)
+    print("Unit testing complete")
 
     # Euler tests (bool: False = silent, True = verbose)
     test_eulers(True)

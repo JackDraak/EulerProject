@@ -4,8 +4,8 @@ def euler1(n):
     return sum(i for i in range(1, n) if is_divisible_by_3or5(i))
 
 
-# Euler2: The sum of even Fibonacci numbers
-# [1 - 4,000,000]
+# Euler2: The sum of even Fibonacci numbers less than or equal to a value
+# [<4,000,000]
 def euler2(n):
     return sum(i for i in fibonacci(n) if (is_even(i) and i < n))
 
@@ -48,7 +48,7 @@ def euler4(n):
     return "end of line"
 
 
-# Euler5: The smallest +ve number that is evenly divisible by all of the positive integers in the set
+# Euler5: The smallest positive integer that is evenly divisible by all of the positive integers in the set
 # [1 - 20]
 def euler5(n):
     euler = 0
@@ -71,24 +71,41 @@ def euler6(n):
 
     for i in range(1, n + 1):
         sum_of_set += i
-        sum_of_squares += i*i
+        sum_of_squares += i * i
     return sum_of_set * sum_of_set - sum_of_squares
 
 
-def fibonacci(max_value):
-    fibs = [1, 2]
+# Euler7: The nth prime number in the series
+# [10,001st]
+def euler7(n):
+    count = 0
+    i = 0
 
+    while count < n:
+        i += 1
+        if is_prime(i):
+            count += 1
+    return i
+
+
+# Generate and return Fibonacci numbers as an array, up to 'n', inclusive
+def fibonacci(n):
+    # corner cases
+    if n < 0:
+        return None
+    if n < 3:
+        return n
+
+    fibonacci_set = [1, 2]
     while True:
-        f1 = fibs[len(fibs) - 1]
-        f2 = fibs[len(fibs) - 2]
-        n = f1 + f2
-
-        if n <= max_value:
-            fibs.append(n)
+        f1 = fibonacci_set[len(fibonacci_set) - 1]
+        f2 = fibonacci_set[len(fibonacci_set) - 2]
+        i = f1 + f2
+        if i <= n:
+            fibonacci_set.append(i)
         else:
             break
-
-    return fibs
+    return fibonacci_set
 
 
 def is_divisible_by_3or5(n):
@@ -227,6 +244,26 @@ def test_eulers(verbose):
     assert euler6(100) == 25164150
     if verbose:
         print("Euler6(100) = " + str(euler6(100)))
+        print("")
+
+    assert euler7(0) == 0
+    assert euler7(1) == 2
+    assert euler7(2) == 3
+    assert euler7(3) == 5
+    assert euler7(4) == 7
+    assert euler7(5) == 11
+    assert euler7(6) == 13
+    assert euler7(7) == 17
+    assert euler7(8) == 19
+    assert euler7(9) == 23
+    for i in range(10):
+        if verbose:
+            print("Euler7(" + str(i) + ") = " + str(euler7(i)))
+
+    assert euler7(10001) == 104743
+    if verbose:
+        print("Euler7(10001) = " + str(euler7(10001)))
+        print("")
 
 
 def test_fibonacci(verbose):
@@ -241,24 +278,24 @@ def test_is_factor(verbose):
     assert is_factor(i, n) == True
     assert is_prime_factor(i, n) == False
     if verbose:
-        _test_is_factor_set_verbosity(i, n)
+        _test_is_factor_verbosity(i, n)
 
     i = 4
     n = 9
     assert is_factor(i, n) == False
     assert is_prime_factor(i, n) == False
     if verbose:
-        _test_is_factor_set_verbosity(i, n)
+        _test_is_factor_verbosity(i, n)
 
     i = 5
     n = 10
     assert is_factor(i, n) == True
     assert is_prime_factor(i, n) == True
     if verbose:
-        _test_is_factor_set_verbosity(i, n)
+        _test_is_factor_verbosity(i, n)
 
 
-def _test_is_factor_set_verbosity(i, n):
+def _test_is_factor_verbosity(i, n):
     print("factors(" + str(i) + ", " + str(n) + ") = " + str(is_factor(i, n)))
     print("prime_factors(" + str(i) + ", " + str(n) + ") = " + str(is_prime_factor(i, n)))
 

@@ -51,6 +51,20 @@ def euler4(n):
     return "end of line"
 
 
+# Euler5: The smallest +ve number that is evenly divisible by all of the positive integers in the set [from 1 to 20]
+def euler5(n):
+    euler = 0
+    euler_candidate = n
+    while euler == 0:
+        euler_candidate += n
+        for i in range(1, n + 1):
+            if euler_candidate % i != 0:
+                break
+            if i == n:
+                euler = euler_candidate
+    return euler
+
+
 def fibonacci(max_value):
     fibs = [1, 2]
 
@@ -173,15 +187,28 @@ def test_eulers(verbose):
     assert euler4(3) == 906609
     if verbose:
         print("Euler4(3) = " + str(euler4(3)))
+        print("")
 
-    assert euler4(4) == 99000099
-    if verbose:
-        print("Euler4(4) = " + str(euler4(4)))
+    # this passes, but takes a second
+    # assert euler4(4) == 99000099
+    # if verbose:
+    #    print("Euler4(4) = " + str(euler4(4)))
+    #    print("")
 
     # this passes, but takes a few moments
     # assert euler4(5) == 9966006699
     # if verbose:
     #    print("Euler4(5) = " + str(euler4(5)))
+
+    assert euler5(10) == 2520
+    if verbose:
+        print("Euler5(10) = " + str(euler5(10)))
+
+    # this passes, but takes a few moments
+    # assert euler5(20) == 232792560
+    # if verbose:
+    #    print("Euler5(20) = " + str(euler5(20)))
+    #    print("")
 
 
 def test_fibonacci(verbose):

@@ -1,5 +1,3 @@
-import random
-
 # Euler1: The sum of integers less than 'n' that are divisible by 3 or 5
 # [1 - 1000]
 def euler1(n):
@@ -34,8 +32,8 @@ def euler4(n):
     if n < 2:
         return None
 
-    i_max = 10**n
-    i_min = i_max - (10**(n - 1))
+    i_max = 10 ** n
+    i_min = i_max - (10 ** (n - 1))
     integer_candidates = range(i_min, i_max)
     max_palindrome = 0
 
@@ -117,67 +115,15 @@ def euler8(n):
     return accumulator
 
 
-# Euler9: There exists exactly one Pythagorean triplet for which a + b + c = 1000
+# Euler9: There exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product: abc
 def euler9():
-    a, b, c = 1, 1, 1
-    print(pythagorean_product(a, b, c))
-
-    while pythagorean_product(a, b, c) != 1000:
-        if pythagorean_product(a, b, c) < 1000:
-            if random.randint(0, 2):
-                a += 1
-            elif random.randint(0, 1):
-                b += 1
-            else:
-                c += 1
-
-            if a > 40:
-                a = 40
-            if b > 40:
-                b = 40
-            if c > 40:
-                c = 40
-
-        elif random.randint(0, 2):
-            a -= 1
-        elif random.randint(0, 1):
-            b -= 1
-        else:
-            c -= 1
-
-        if a < 1:
-            a = 1
-        if b < 1:
-            b = 1
-        if c < 1:
-            c = 1
-        print(pythagorean_product(a, b, c))
-        if pythagorean_product(a, b, c) == 1001:
-            print(a, end=", ")
-            print(b, end=", ")
-            print(c)
-        if pythagorean_product(a, b, c) > 2000:
-            break
-    print(a, end=", ")
-    print(b, end=", ")
-    print(c)
-    print(a * b * c)
-
-    #   1000
-    #   30, 8, 6
-    #   1440
-
-    #   1000
-    #   24, 18, 10
-    #   4320
+    test_range = range(100, 500)
+    for a in test_range:
+        for b in test_range:
+            if a + b + hypotenuse(a, b) == 1000:
+                return a * b * int(hypotenuse(a, b))
 
 
-# lol someone misunderstood the challenge checking-in for posterity
-def pythagorean_product(a, b, c):
-    return a**2 + b**2 + c**2
-
-
-# Generate and return Fibonacci numbers as an array, up to 'n', inclusive
 def fibonacci(n):
     if n < 0:
         return None
@@ -195,8 +141,8 @@ def fibonacci(n):
     return fibonacci_set
 
 
-def hypotenuse(a,b):
-    return ( a**2 + b**2 )**.5
+def hypotenuse(a, b):
+    return (a ** 2 + b ** 2) ** 0.5
 
 
 def is_divisible_by_3or5(n):
@@ -246,38 +192,40 @@ def is_prime_factor(i, n):
     return is_prime(i) and is_factor(i, n)
 
 
-def is_sqrt_or_less(i, n):
-    return i * i <= n
-
-
 def test_eulers():
     print("")
-    print("Euler Test\t(Test Value)\t\t\tTest Result")
-    print("----- ----\t----- ------\t\t\t---- ------")
+    print("Euler Test\t(Test Value)\t\t\tTest Result\tExplanation")
+    print("----- ----\t----- ------\t\t\t---- ------\t-----------")
 
     assert euler1(1000) == 233168
-    print("Euler1\t\t(1000)\t\t\t=\t\t" + str(euler1(1000)))
+    print("Euler1\t\t(1000)\t\t\t=\t\t" + str(euler1(1000)) +
+          "\t\tThe sum of integers less than 'n' that are divisible by 3 or 5")
 
     assert euler2(4000000) == 4613732
-    print("Euler2\t\t(4000000)\t\t=\t\t" + str(euler2(4000000)))
+    print("Euler2\t\t(4000000)\t\t=\t\t" + str(euler2(4000000)) +
+          "\t\tThe sum of even Fibonacci numbers less than the value of 'n'")
 
     assert euler3(5143) == 139
     assert euler3(14391) == 41
     assert euler3(4745143) == 97
     assert euler3(994745143) == 5227
     assert euler3(600851475143) == 6857
-    print("Euler3\t\t(600851475143)\t=\t\t" + str(euler3(600851475143)))
+    print("Euler3\t\t(600851475143)\t=\t\t" + str(euler3(600851475143)) +
+          "\t\tThe largest prime factor of 'n'")
 
     assert euler4(2) == 9009
     assert euler4(3) == 906609
-    print("Euler4\t\t(3)\t\t\t\t=\t\t" + str(euler4(3)))
+    print("Euler4\t\t(3)\t\t\t\t=\t\t" + str(euler4(3)) +
+          "\t\tThe largest palindrome made from the product of two n-digit integers")
 
     assert euler5(10) == 2520
-    print("Euler5\t\t(20)\t\t\t=\t\t" + str(euler5(20)))
+    print("Euler5\t\t(20)\t\t\t=\t\t" + str(euler5(20)) +
+          "\tThe smallest positive integer that is evenly divisible by all of the positive integers less than 'n'")
 
     assert euler6(10) == 2640
     assert euler6(100) == 25164150
-    print("Euler6\t\t(100)\t\t\t=\t\t" + str(euler6(100)))
+    print("Euler6\t\t(100)\t\t\t=\t\t" + str(euler6(100)) +
+          "\tThe difference between the sum of the squares, and the square of the sum, of the integers up to 'n' + 1")
 
     assert euler7(0) == 0
     assert euler7(1) == 2
@@ -290,7 +238,8 @@ def test_eulers():
     assert euler7(8) == 19
     assert euler7(9) == 23
     assert euler7(10001) == 104743
-    print("Euler7\t\t(10001)\t\t\t=\t\t" + str(euler7(10001)))
+    print("Euler7\t\t(10001)\t\t\t=\t\t" + str(euler7(10001)) +
+          "\t\tThe nth (literally) prime number in the series")
 
     assert euler8(0) == 0
     assert euler8(1) == 9
@@ -302,7 +251,12 @@ def test_eulers():
     assert euler8(7) == 2571912
     assert euler8(8) == 7838208
     assert euler8(13) == 23514624000
-    print("Euler8\t\t(13)\t\t\t=\t\t" + str(euler8(13)))
+    print("Euler8\t\t(13)\t\t\t=\t\t" + str(euler8(13)) +
+          "\tThe frame of 'n' sequential digits in this 1000-digit number that have the greatest product")
+
+    assert euler9() == 31875000
+    print("Euler9\t\t()\t\t\t\t=\t\t" + str(euler9()) +
+          "\tThere exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product abc")
 
 
 def test_fibonacci():
@@ -364,7 +318,6 @@ def batched_unit_tests():
 
 if __name__ == '__main__':
     batched_unit_tests()
-    # test_eulers()
-    euler9()
+    test_eulers()
 
 

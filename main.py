@@ -13,6 +13,7 @@ def euler2(n):
 # Euler3: The largest prime factor of 'n'
 # [600851475143]
 def euler3(n):
+    # TODO: come back and fix this Jerry-rigged garb^H^H^H function, at some point
     # Optimized, but broken for some cases (i.e. n=5143), without s_f_f >= 69 (should be 1).
     stupid_fudge_factor = 69
     for i in reversed(range(3, int(n**0.5) + stupid_fudge_factor, 2)):
@@ -97,21 +98,16 @@ def euler8(n):
     for frame_begin in range(len(str(k))):
         this_frame = []
         for digit in range(0, n):
-            # try:except is more performant when a rare occurrence, so I'm sticking
-            # with this rather than checking if the index is in-bounds every cycle
             try:
                 this_frame.append(int(str(k)[frame_begin + digit]))
             except IndexError:
                 continue
-
         if this_frame.__contains__(0):
             continue
-
         else:
             product = int(this_frame[0])
-            for c in range(1, len(this_frame)):
-                product *= this_frame[c]
-
+            for i in range(1, len(this_frame)):
+                product *= this_frame[i]
         if product > accumulator:
             accumulator = product
     if accumulator == 0:
@@ -121,17 +117,15 @@ def euler8(n):
 
 # Generate and return Fibonacci numbers as an array, up to 'n', inclusive
 def fibonacci(n):
-    # corner cases
     if n < 0:
         return None
     if n < 3:
         return n
-
     fibonacci_set = [1, 2]
     while True:
-        f1 = fibonacci_set[len(fibonacci_set) - 1]
-        f2 = fibonacci_set[len(fibonacci_set) - 2]
-        i = f1 + f2
+        a = fibonacci_set[len(fibonacci_set) - 1]
+        b = fibonacci_set[len(fibonacci_set) - 2]
+        i = a + b
         if i <= n:
             fibonacci_set.append(i)
         else:
@@ -157,35 +151,25 @@ def is_odd(n):
 
 def is_palindrome(n):
     if type(n) != int:
-        return "extend function to check strings"
-
-    f = str(n)
-    digits = len(f)
-
+        return "it might be handy to extend this function to check strings for that"
+    digits = len(str(n))
     if digits <= 1:
         return False
-
     for i in range(0, int(digits/2)):
-        if int(f[i]) != int(f[digits - i - 1]):
+        if int(str(n)[i]) != int(str(n)[digits - i - 1]):
             return False
     return True
 
 
-# optimized prime qualifier, using 6k±1 discovery, which I don't fully understand
 def is_prime(n):
-    # corner cases
     if n <= 1:
         return False
     if n <= 3:
         return True
-
-    # divisible by 2 or 3, not prime
     if n % 2 == 0 or n % 3 == 0:
         return False
-
-    # 6k±1 discovery
     i = 5
-    while i * i <= n:  # i.e. while 'i' is less than the square root of 'n'
+    while i * i <= n:
         if n % i == 0 or n % (i + 2) == 0:
             return False
         i = i + 6
@@ -218,8 +202,8 @@ def test_eulers():
     assert euler3(600851475143) == 6857
     print("Euler3\t\t(600851475143)\t=\t\t" + str(euler3(600851475143)))
 
-    assert euler4(3) == 906609
     assert euler4(2) == 9009
+    assert euler4(3) == 906609
     print("Euler4\t\t(3)\t\t\t\t=\t\t" + str(euler4(3)))
 
     assert euler5(10) == 2520

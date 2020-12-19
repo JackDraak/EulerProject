@@ -125,6 +125,18 @@ def euler9(n):
     return None
 
 
+# Euler10: Return the sum of all the primes below 'n'
+# [2,000,000]
+def euler10(n):
+    prime_suspect = 0
+    accumulator = 0
+    while prime_suspect < n:
+        prime_suspect += 1
+        if is_prime(prime_suspect):  # could be optimized by using a stepping is_prime 'overload', methinks
+            accumulator += prime_suspect
+    return accumulator
+
+
 def fibonacci(n):
     if n < 0:
         return None
@@ -193,18 +205,22 @@ def is_prime_factor(i, n):
     return is_prime(i) and is_factor(i, n)
 
 
+def prime(n):
+    return euler7(n)
+
+
 def test_eulers():
     print("")
-    print("Euler Test\t(Test Value)\t\t\tTest Result\tExplanation")
-    print("----- ----\t----- ------\t\t\t---- ------\t-----------")
+    print("Euler Test\t(Test Value)\t\t\tTest Result\t\tExplanation")
+    print("----- ----\t----- ------\t\t\t---- ------\t\t-----------")
 
     assert euler1(1000) == 233168
     print("Euler1\t\t(1000)\t\t\t=\t\t" + str(euler1(1000)) +
-          "\t\tThe sum of integers less than 'n' that are divisible by 3 or 5")
+          "\t\t\tThe sum of integers less than 'n' that are divisible by 3 or 5")
 
     assert euler2(4000000) == 4613732
     print("Euler2\t\t(4000000)\t\t=\t\t" + str(euler2(4000000)) +
-          "\t\tThe sum of even Fibonacci numbers less than the value of 'n'")
+          "\t\t\tThe sum of even Fibonacci numbers less than the value of 'n'")
 
     assert euler3(5143) == 139
     assert euler3(14391) == 41
@@ -212,21 +228,21 @@ def test_eulers():
     assert euler3(994745143) == 5227
     assert euler3(600851475143) == 6857
     print("Euler3\t\t(600851475143)\t=\t\t" + str(euler3(600851475143)) +
-          "\t\tThe largest prime factor of 'n'")
+          "\t\t\tThe largest prime factor of 'n'")
 
     assert euler4(2) == 9009
     assert euler4(3) == 906609
     print("Euler4\t\t(3)\t\t\t\t=\t\t" + str(euler4(3)) +
-          "\t\tThe largest palindrome made from the product of two n-digit integers")
+          "\t\t\tThe largest palindrome made from the product of two n-digit integers")
 
     assert euler5(10) == 2520
     print("Euler5\t\t(20)\t\t\t=\t\t" + str(euler5(20)) +
-          "\tThe smallest positive integer that is evenly divisible by all of the positive integers less than 'n'")
+          "\t\tThe smallest positive integer that is evenly divisible by all of the positive integers less than 'n'")
 
     assert euler6(10) == 2640
     assert euler6(100) == 25164150
     print("Euler6\t\t(100)\t\t\t=\t\t" + str(euler6(100)) +
-          "\tThe difference between the sum of the squares, and the square of the sum, of the integers up to 'n' + 1")
+          "\t\tThe difference between the sum of the squares, and the square of the sum, of the integers up to 'n' + 1")
 
     assert euler7(0) == 0
     assert euler7(1) == 2
@@ -240,7 +256,7 @@ def test_eulers():
     assert euler7(9) == 23
     assert euler7(10001) == 104743
     print("Euler7\t\t(10001)\t\t\t=\t\t" + str(euler7(10001)) +
-          "\t\tThe nth (literally) prime number in the series")
+          "\t\t\tThe nth (literally) prime number in the series")
 
     assert euler8(0) == 0
     assert euler8(1) == 9
@@ -253,12 +269,17 @@ def test_eulers():
     assert euler8(8) == 7838208
     assert euler8(13) == 23514624000
     print("Euler8\t\t(13)\t\t\t=\t\t" + str(euler8(13)) +
-          "\tThe frame of 'n' sequential digits in this 1000-digit number that have the greatest product")
+          "\t\tThe frame of 'n' sequential digits in this 1000-digit number that have the greatest product")
 
     assert euler9(100) is None
     assert euler9(1000) == 31875000
     print("Euler9\t\t(1000)\t\t\t=\t\t" + str(euler9(1000)) +
-          "\tThere exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product abc")
+          "\t\tThere exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product abc")
+
+    assert euler10(10) == 17
+    assert euler10(2000) == 277050
+    print("Euler10\t\t(2000000)\t\t=\t\t" + str(euler10(2000000)) +
+          "\tReturn the sum of all the primes below 'n'")
 
 
 def test_fibonacci():

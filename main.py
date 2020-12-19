@@ -1,3 +1,5 @@
+import random
+
 # Euler1: The sum of integers less than 'n' that are divisible by 3 or 5
 # [1 - 1000]
 def euler1(n):
@@ -115,6 +117,66 @@ def euler8(n):
     return accumulator
 
 
+# Euler9: There exists exactly one Pythagorean triplet for which a + b + c = 1000
+def euler9():
+    a, b, c = 1, 1, 1
+    print(pythagorean_product(a, b, c))
+
+    while pythagorean_product(a, b, c) != 1000:
+        if pythagorean_product(a, b, c) < 1000:
+            if random.randint(0, 2):
+                a += 1
+            elif random.randint(0, 1):
+                b += 1
+            else:
+                c += 1
+
+            if a > 40:
+                a = 40
+            if b > 40:
+                b = 40
+            if c > 40:
+                c = 40
+
+        elif random.randint(0, 2):
+            a -= 1
+        elif random.randint(0, 1):
+            b -= 1
+        else:
+            c -= 1
+
+        if a < 1:
+            a = 1
+        if b < 1:
+            b = 1
+        if c < 1:
+            c = 1
+        print(pythagorean_product(a, b, c))
+        if pythagorean_product(a, b, c) == 1001:
+            print(a, end=", ")
+            print(b, end=", ")
+            print(c)
+        if pythagorean_product(a, b, c) > 2000:
+            break
+    print(a, end=", ")
+    print(b, end=", ")
+    print(c)
+    print(a * b * c)
+
+    #   1000
+    #   30, 8, 6
+    #   1440
+
+    #   1000
+    #   24, 18, 10
+    #   4320
+
+
+# lol someone misunderstood the challenge checking-in for posterity
+def pythagorean_product(a, b, c):
+    return a**2 + b**2 + c**2
+
+
 # Generate and return Fibonacci numbers as an array, up to 'n', inclusive
 def fibonacci(n):
     if n < 0:
@@ -131,6 +193,10 @@ def fibonacci(n):
         else:
             break
     return fibonacci_set
+
+
+def hypotenuse(a,b):
+    return ( a**2 + b**2 )**.5
 
 
 def is_divisible_by_3or5(n):
@@ -270,7 +336,7 @@ def test_is_palindrome():
     assert is_palindrome(2112) == True
     assert is_palindrome(21999912) == True
     assert is_palindrome(12) == False
-    assert is_palindrome("abc") == "extend function to check strings"
+    assert is_palindrome("abc") == "it might be handy to extend this function to check strings for that"
     return True
 
 
@@ -298,6 +364,7 @@ def batched_unit_tests():
 
 if __name__ == '__main__':
     batched_unit_tests()
-    test_eulers()
+    # test_eulers()
+    euler9()
 
 

@@ -116,12 +116,13 @@ def euler8(n):
 
 
 # Euler9: There exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product: abc
-def euler9():
-    test_range = range(100, 500)
+def euler9(n):
+    test_range = range(1, n)
     for a in test_range:
         for b in test_range:
-            if a + b + hypotenuse(a, b) == 1000:
+            if a + b + hypotenuse(a, b) == n:
                 return a * b * int(hypotenuse(a, b))
+    return None
 
 
 def fibonacci(n):
@@ -254,8 +255,9 @@ def test_eulers():
     print("Euler8\t\t(13)\t\t\t=\t\t" + str(euler8(13)) +
           "\tThe frame of 'n' sequential digits in this 1000-digit number that have the greatest product")
 
-    assert euler9() == 31875000
-    print("Euler9\t\t()\t\t\t\t=\t\t" + str(euler9()) +
+    assert euler9(100) is None
+    assert euler9(1000) == 31875000
+    print("Euler9\t\t(1000)\t\t\t=\t\t" + str(euler9(1000)) +
           "\tThere exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product abc")
 
 
@@ -267,40 +269,40 @@ def test_fibonacci():
 def test_is_factor():
     i = 1
     n = 2
-    assert is_factor(i, n) == True
-    assert is_prime_factor(i, n) == False
+    assert is_factor(i, n) is True
+    assert is_prime_factor(i, n) is False
     i = 4
     n = 9
-    assert is_factor(i, n) == False
-    assert is_prime_factor(i, n) == False
+    assert is_factor(i, n) is False
+    assert is_prime_factor(i, n) is False
     i = 5
     n = 10
-    assert is_factor(i, n) == True
-    assert is_prime_factor(i, n) == True
+    assert is_factor(i, n) is True
+    assert is_prime_factor(i, n) is True
     return True
 
 
 def test_is_palindrome():
-    assert is_palindrome(1201) == False
-    assert is_palindrome(906609) == True
-    assert is_palindrome(101) == True
-    assert is_palindrome(11) == True
-    assert is_palindrome(1660661) == True
-    assert is_palindrome(9) == False
-    assert is_palindrome(2112) == True
-    assert is_palindrome(21999912) == True
-    assert is_palindrome(12) == False
+    assert is_palindrome(1201) is False
+    assert is_palindrome(906609) is True
+    assert is_palindrome(101) is True
+    assert is_palindrome(11) is True
+    assert is_palindrome(1660661) is True
+    assert is_palindrome(9) is False
+    assert is_palindrome(2112) is True
+    assert is_palindrome(21999912) is True
+    assert is_palindrome(12) is False
     assert is_palindrome("abc") == "it might be handy to extend this function to check strings for that"
     return True
 
 
 def test_is_prime():
-    assert is_prime(0) == False
-    assert is_prime(2) == True
-    assert is_prime(4) == False
-    assert is_prime(7) == True
-    assert is_prime(22) == False
-    assert is_prime(23) == True
+    assert is_prime(0) is False
+    assert is_prime(2) is True
+    assert is_prime(4) is False
+    assert is_prime(7) is True
+    assert is_prime(22) is False
+    assert is_prime(23) is True
     return True
 
 

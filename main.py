@@ -173,17 +173,8 @@ def euler11(n):
             for i in range(n):
                 try:
                     product_dd *= grid[x + i][y + i]
-                except IndexError:
-                    continue
-                try:
                     product_du *= grid[x + i][y - i]
-                except IndexError:
-                    continue
-                try:
                     product_h *= grid[x + i][y]
-                except IndexError:
-                    continue
-                try:
                     product_v *= grid[x][y + i]
                 except IndexError:
                     continue

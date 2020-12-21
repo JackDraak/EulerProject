@@ -16,7 +16,7 @@ def euler3(n):
     # TODO: come back and fix this Jerry-rigged garb^H^H^H function, at some point
     # Optimized, but broken for some cases (i.e. n=5143), without s_f_f >= 69 (should be 1).
     stupid_fudge_factor = 69
-    for i in reversed(range(3, int(n**0.5) + stupid_fudge_factor, 2)):
+    for i in reversed(range(3, int(n ** 0.5) + stupid_fudge_factor, 2)):
         if is_divisible_by_3or5(i):
             continue
         if is_prime_factor(i, n):
@@ -137,6 +137,61 @@ def euler10(n):
     return accumulator
 
 
+# Euler11: The greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally)
+# [in the provided 20×20 grid]
+def euler11(n):
+    grid = [
+        [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
+        [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
+        [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
+        [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
+        [22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],
+        [24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],
+        [32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],
+        [67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],
+        [24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],
+        [21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],
+        [78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],
+        [16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],
+        [86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],
+        [19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],
+        [4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],
+        [88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],
+        [4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],
+        [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],
+        [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
+        [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48],
+    ]
+
+    big_product = 0
+    for x in range(20):
+        for y in range(20):
+            product_dd = 1
+            product_du = 1
+            product_v = 1
+            product_h = 1
+            for i in range(n):
+                try:
+                    product_dd *= grid[x + i][y + i]
+                except IndexError:
+                    continue
+                try:
+                    product_du *= grid[x + i][y - i]
+                except IndexError:
+                    continue
+                try:
+                    product_h *= grid[x + i][y]
+                except IndexError:
+                    continue
+                try:
+                    product_v *= grid[x][y + i]
+                except IndexError:
+                    continue
+            if big_product < max(product_dd, product_du, product_h, product_v):
+                big_product = max(product_dd, product_du, product_h, product_v)
+    return big_product
+
+
 def fibonacci(n):
     if n < 0:
         return None
@@ -180,7 +235,7 @@ def is_palindrome(n):
     digits = len(str(n))
     if digits <= 1:
         return False
-    for i in range(0, int(digits/2)):
+    for i in range(0, int(digits / 2)):
         if int(str(n)[i]) != int(str(n)[digits - i - 1]):
             return False
     return True
@@ -214,11 +269,15 @@ def test_eulers():
     print("Euler Test\t(Test Value)\t\t\tTest Result\t\tExplanation")
     print("----- ----\t----- ------\t\t\t---- ------\t\t-----------")
 
-    assert euler1(1000) == 233168
+    assert euler1(50) == 543
+    assert euler1(507) == 59928
+    # assert euler1(1000) == 233168
     print("Euler1\t\t(1000)\t\t\t=\t\t" + str(euler1(1000)) +
           "\t\t\tThe sum of integers less than 'n' that are divisible by 3 or 5")
 
-    assert euler2(4000000) == 4613732
+    assert euler2(50) == 44
+    assert euler2(500) == 188
+    # assert euler2(4000000) == 4613732
     print("Euler2\t\t(4000000)\t\t=\t\t" + str(euler2(4000000)) +
           "\t\t\tThe sum of even Fibonacci numbers less than the value of 'n'")
 
@@ -226,12 +285,12 @@ def test_eulers():
     assert euler3(14391) == 41
     assert euler3(4745143) == 97
     assert euler3(994745143) == 5227
-    assert euler3(600851475143) == 6857
+    # assert euler3(600851475143) == 6857
     print("Euler3\t\t(600851475143)\t=\t\t" + str(euler3(600851475143)) +
           "\t\t\tThe largest prime factor of 'n'")
 
     assert euler4(2) == 9009
-    assert euler4(3) == 906609
+    # assert euler4(3) == 906609
     print("Euler4\t\t(3)\t\t\t\t=\t\t" + str(euler4(3)) +
           "\t\t\tThe largest palindrome made from the product of two n-digit integers")
 
@@ -240,7 +299,7 @@ def test_eulers():
           "\t\tThe smallest positive integer that is evenly divisible by all of the positive integers less than 'n'")
 
     assert euler6(10) == 2640
-    assert euler6(100) == 25164150
+    # assert euler6(100) == 25164150
     print("Euler6\t\t(100)\t\t\t=\t\t" + str(euler6(100)) +
           "\t\tThe difference between the sum of the squares, and the square of the sum, of the integers up to 'n' + 1")
 
@@ -254,7 +313,7 @@ def test_eulers():
     assert euler7(7) == 17
     assert euler7(8) == 19
     assert euler7(9) == 23
-    assert euler7(10001) == 104743
+    # assert euler7(10001) == 104743
     print("Euler7\t\t(10001)\t\t\t=\t\t" + str(euler7(10001)) +
           "\t\t\tThe nth (literally) prime number in the series")
 
@@ -267,12 +326,12 @@ def test_eulers():
     assert euler8(6) == 285768
     assert euler8(7) == 2571912
     assert euler8(8) == 7838208
-    assert euler8(13) == 23514624000
+    # assert euler8(13) == 23514624000
     print("Euler8\t\t(13)\t\t\t=\t\t" + str(euler8(13)) +
           "\t\tThe frame of 'n' sequential digits in this 1000-digit number that have the greatest product")
 
     assert euler9(100) is None
-    assert euler9(1000) == 31875000
+    # assert euler9(1000) == 31875000
     print("Euler9\t\t(1000)\t\t\t=\t\t" + str(euler9(1000)) +
           "\t\tThere exists exactly one Pythagorean triplet for which a + b + c = 1000, return the product abc")
 
@@ -280,6 +339,13 @@ def test_eulers():
     assert euler10(2000) == 277050
     print("Euler10\t\t(2000000)\t\t=\t\t" + str(euler10(2000000)) +
           "\tReturn the sum of all the primes below 'n'")
+
+    assert euler11(2) == 9603
+    assert euler11(3) == 811502
+    assert euler11(5) == 3318231678
+    print("Euler11\t\t(4)\t\t\t\t=\t\t" + str(euler11(4)) +
+          "\t\tThe greatest product of 'n' adjacent numbers in the same direction " +
+          "(up, down, left, right, or diagonally)")
 
 
 def test_fibonacci():
@@ -342,5 +408,3 @@ def batched_unit_tests():
 if __name__ == '__main__':
     batched_unit_tests()
     test_eulers()
-
-
